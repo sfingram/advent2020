@@ -24,3 +24,6 @@ Again, the size of the input is small enough that just looping over distinct tri
 
 I had some trouble here keeping track of the unwrapping.
 
+## Day 2
+
+Learned a lot from this one about structs and traits, not to mention regex in Rust.  As far as the puzzle goes, still quite simple in both parts.
