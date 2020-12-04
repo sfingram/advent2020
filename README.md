@@ -31,3 +31,6 @@ Learned a lot from this one about structs and traits, not to mention regex in Ru
 ## Day 3
 
 Another simple puzzle, but I did run into my first ownership error in this exercise.  Essentially, the `Vec` of `Vec` of slope structs was getting "moved" when passed in to a closure in the `map`.  This means the memory pointed to by this vec would get dropped after the closure exits and the `Vec` goes out of scope.  This would be fine, except we need to reference that same memory in Part 2.  Anyway, this type of thing is simple to solve if we just use references, which no longer have the side effect of dropping the memory the Vec points to, just the memory associated with the reference.
+
+## Day 4
+
