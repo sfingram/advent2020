@@ -5,8 +5,6 @@ use std::io::{self, BufReader};
 use std::collections::HashSet;
 #[macro_use] extern crate lazy_static;
 
-// static features: HashSet<String> = ["byr".to_string()].iter().cloned().collect( );
-
 lazy_static! {
     static ref REF_FEATURES: HashSet<String> = [
         "byr", 
@@ -20,7 +18,12 @@ lazy_static! {
 }
 
 fn validate(passport: &Vec<String>) -> bool {
-    let features: HashSet<String> = passport.iter().map(|x| x.split(':').next().unwrap().to_string()).collect();
+    let features: HashSet<String> = passport.iter()
+        .map(|x| x.split(':')
+            .next()
+            .unwrap()
+            .to_string())
+        .collect();
     return REF_FEATURES.is_subset(&features)
 }
 
@@ -31,12 +34,12 @@ fn main() -> io::Result<()> {
     let file = File::open(filename)?;
     let reader = BufReader::new(file);
 
-    // parse and count trees
-    let mut entries: Vec<Vec<String>> = Vec::new();
-    entries.push(Vec::new());
+    let mut passports: Vec<Vec<String>> = Vec::new();
+    passports.push(Vec::new());
 
+    // group input into a vector of variable-length vectors
     let values: Vec<String> = reader.lines().map(|v| v.unwrap()).collect();
-    entries = values.iter().fold(entries, |mut acc, x| {
+    passports = values.iter().fold(passports, |mut acc, x| {
         if x.len() == 0 {
             acc.push(Vec::new());
         } else {
@@ -49,7 +52,7 @@ fn main() -> io::Result<()> {
         acc
     });
 
-    println!("Part 1: {}", entries.iter().filter(|x| validate(&x)).count());
+    println!("Part 1: {}", passports.iter().filter(|x| validate(&x)).count());
 
     return Ok(());
 }
