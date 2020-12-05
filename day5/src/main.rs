@@ -14,26 +14,15 @@ fn main() -> io::Result<()> {
     let ids: Vec<i32> = reader
         .lines()
         .map(|v| {
-            let v_u = v.unwrap();
-            let row: i32 = v_u[..7].to_string()
+            v.unwrap()
             .chars()
             .enumerate()
             .map(|(i, x)| match x {
-                'B' => 1,
+                'R' | 'B' => 1,
                 _ => 0,
-            } << (6-i))
-            .sum();
-            let col: i32 = v_u[7..].to_string()
-            .chars()
-            .enumerate()
-            .map(|(i, x)| match x {
-                'R' => 1,
-                _ => 0,
-            } << (2-i))
-            .sum();
-            row * 8 + col
-        })
-        .collect();
+            } << (9-i))
+            .sum()
+        }).collect();
 
     let part_1: i32 = *ids.iter().max().unwrap();
 
