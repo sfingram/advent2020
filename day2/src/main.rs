@@ -74,5 +74,5 @@ fn main() -> io::Result<()> {
 
     println!("Part 2: {}", num_values_too);
 
-    return Ok(())
+    Ok(())
 }

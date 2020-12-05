@@ -11,21 +11,18 @@ struct Slope {
     vertical: usize,
 }
 
-fn check_slope(slope: &Slope, values: &Vec<Vec<char>>) -> i32 {
+fn check_slope(slope: &Slope, values: &[Vec<char>]) -> i32 {
 
     let mut h_pos: usize = 0;
-    let mut v_pos: usize = 0;
-
     let mut num_trees: i32 = 0;    
 
-    for value in values.iter() {
+    for (v_pos, value) in values.iter().enumerate() {
         if v_pos % slope.vertical == 0 {
             if value[h_pos % value.len()] == TREE {
                 num_trees += 1;
             }
             h_pos += slope.horizontal;
         }
-        v_pos += 1;
     }
     num_trees
 }
@@ -59,5 +56,5 @@ fn main() -> io::Result<()> {
         .fold(1 as i64, |acc, x| acc * (x as i64));
     println!("Part 2: {}", num_trees_two);
 
-    return Ok(())
+    Ok(())
 }

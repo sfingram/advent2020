@@ -21,7 +21,7 @@ fn main() -> io::Result<()> {
             .map(|(i, x)| match x {
                 'B' => 1,
                 _ => 0,
-            } << 6-i)
+            } << (6-i))
             .sum();
             let col: i32 = v_u[7..].to_string()
             .chars()
@@ -29,7 +29,7 @@ fn main() -> io::Result<()> {
             .map(|(i, x)| match x {
                 'R' => 1,
                 _ => 0,
-            } << 2-i)
+            } << (2-i))
             .sum();
             row * 8 + col
         })
@@ -39,13 +39,12 @@ fn main() -> io::Result<()> {
 
     println!("Part 1: {}", part_1);
 
-    let sorted_ids: Vec<i32> = sorted(ids.iter()).map(|x| *x).collect();
+    let sorted_ids: Vec<i32> = sorted(ids.iter()).copied().collect();
     let (part_2, _) = zip(sorted_ids.iter(), sorted_ids[1..].iter())
-        .filter(|(x, y)| *x + 1 != **y)
-        .next()
+        .find(|(x, y)| *x + 1 != **y)
         .unwrap();
 
     println!("Part 2: {}", part_2 + 1);
 
-    return Ok(());
+    Ok(())
 }

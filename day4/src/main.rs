@@ -25,17 +25,17 @@ lazy_static! {
     
 }
 
-fn validate(passport: &Vec<String>) -> bool {
+fn validate(passport: &[String]) -> bool {
     let features: HashSet<String> = passport.iter()
         .map(|x| x.split(':')
             .next()
             .unwrap()
             .to_string())
         .collect();
-    return REF_FEATURES.is_subset(&features)
+    REF_FEATURES.is_subset(&features)
 }
 
-fn validate_more(passport: &Vec<String>) -> bool {
+fn validate_more(passport: &[String]) -> bool {
     
     fn validate_dates(value: &str, start: i32, end: i32) -> bool {
         let mut check = false;
@@ -76,7 +76,7 @@ fn validate_more(passport: &Vec<String>) -> bool {
                 _ => false
             }
         })
-        .fold(true, |acc, x| acc && x)
+        .all(|x| x)
 }
 
 fn main() -> io::Result<()> {
@@ -93,7 +93,7 @@ fn main() -> io::Result<()> {
     // group input into a vector of variable-length vectors
     let values: Vec<String> = reader.lines().map(|v| v.unwrap()).collect();
     passports = values.iter().fold(passports, |mut acc, x| {
-        if x.len() == 0 {
+        if x.is_empty() {
             acc.push(Vec::new());
         } else {
             let snarf = acc.pop().unwrap();
@@ -108,5 +108,5 @@ fn main() -> io::Result<()> {
     println!("Part 1: {}", passports.iter().filter(|x| validate(&x)).count());
     println!("Part 2: {}", passports.iter().filter(|x| validate(&x) && validate_more(&x)).count());
 
-    return Ok(());
+    Ok(())
 }

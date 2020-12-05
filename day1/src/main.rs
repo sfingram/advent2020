@@ -21,7 +21,7 @@ fn main() -> io::Result<()> {
         .enumerate()
         .map(|(i, x)| values[i+1..values.len()].iter()
                         .map(|y| (x, y))
-                        .filter(|z| z.0+z.1 == 2020).next())
+                        .find(|z| z.0+z.1 == 2020))
         .filter(|v| matches!(v, Some((_, _))))
         .map(|v| v.unwrap())
         .next().unwrap();
@@ -34,8 +34,7 @@ fn main() -> io::Result<()> {
             .enumerate()
             .map(|(j, y)| values[i+j+1..values.len()].iter()
                 .map(|z| (x, y, z))
-                .filter(|z| z.0+z.1+z.2 == 2020)
-                .next()
+                .find(|z| z.0+z.1+z.2 == 2020)
             )
             .filter(|v| matches!(v, Some((_, _, _))))
             .map(|v| v.unwrap())
@@ -45,5 +44,5 @@ fn main() -> io::Result<()> {
         .map(|v| v.unwrap())
         .next().unwrap();
     println!("Part 2: {} + {} + {} == 2020, a * b * c == {}", a, b, c, a*b*c);
-    return Ok(())
+    Ok(())
 }
