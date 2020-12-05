@@ -35,3 +35,7 @@ Another simple puzzle, but I did run into my first ownership error in this exerc
 ## Day 4
 
 Data validation, using a lot of regular expressions to do the heavy lifting.  Was going to try to come up with a data structure that takes a string and spits out a data validation function, but just settled on a `match` expression.
+
+## Day 5
+
+The key to this puzzle is to recognize the mapping between the binary space partitioning and bitfields.  Got to use itertools on this one.  I'm a confused about why the `i32` data keeps getting turned into `&i32` or even `&&i32` in the sorted vector and `zip`'ed iterator.  I was able to work around it, but it still feels like magic to me, which I wish it wouldn't.
