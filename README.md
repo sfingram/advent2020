@@ -34,3 +34,4 @@ Another simple puzzle, but I did run into my first ownership error in this exerc
 
 ## Day 4
 
+Data validation, using a lot of regular expressions to do the heavy lifting.  Was going to try to come up with a data structure that takes a string and spits out a data validation function, but just settled on a `match` expression.
