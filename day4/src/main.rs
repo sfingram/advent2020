@@ -2,8 +2,10 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{self, BufReader};
-use std::collections::HashSet;
+use std::collections::{HashSet};
 #[macro_use] extern crate lazy_static;
+use regex::Regex;
+
 
 lazy_static! {
     static ref REF_FEATURES: HashSet<String> = [
@@ -15,6 +17,12 @@ lazy_static! {
         "ecl",
         "pid",
     ].iter().map(|x| x.to_string()).collect( );
+    static ref HGT_CM_RE: Regex = Regex::new(r"^(\d+)cm$").unwrap();
+    static ref HGT_IN_RE: Regex = Regex::new(r"^(\d+)in$").unwrap();
+    static ref HCL_RE: Regex = Regex::new(r"^#[0-9a-f]{6}$").unwrap();
+    static ref ECL_RE: Regex = Regex::new(r"^(?:(?:amb)|(?:blu)|(?:brn)|(?:gry)|(?:grn)|(?:hzl)|(?:oth))$").unwrap();
+    static ref PID_RE: Regex = Regex::new(r"^\d{9}$").unwrap();
+    
 }
 
 fn validate(passport: &Vec<String>) -> bool {
@@ -27,7 +35,52 @@ fn validate(passport: &Vec<String>) -> bool {
     return REF_FEATURES.is_subset(&features)
 }
 
+fn validate_more(passport: &Vec<String>) -> bool {
+    
+    fn validate_dates(value: &str, start: i32, end: i32) -> bool {
+        let mut check = false;
+        if value.len() == 4 {
+            let date = value.parse::<i32>().unwrap();
+            check = date >= start && date <= end;   
+        }
+        check
+    }
+
+    passport.iter()
+        .map(|x| {
+            let mut split_fields = x.split(':');
+            let (field, value) = (
+                split_fields.next().unwrap(), 
+                split_fields.next().unwrap()
+            );
+            match field {
+                "byr" => validate_dates(&value, 1920, 2002),
+                "iyr" => validate_dates(&value, 2010, 2020),
+                "eyr" => validate_dates(&value, 2020, 2030),
+                "hgt" => {
+                    let mut check = false;
+                    if HGT_CM_RE.is_match(&value) {
+                        let height = HGT_CM_RE.captures(&value).unwrap()[1].parse::<i32>().unwrap();
+                        check = height >= 150 && height <= 193;
+                    }
+                    if HGT_IN_RE.is_match(&value) {
+                        let height = HGT_IN_RE.captures(&value).unwrap()[1].parse::<i32>().unwrap();
+                        check = height >= 59 && height <= 76;
+                    }
+                    check
+                },
+                "hcl" => HCL_RE.is_match(&value),
+                "ecl" => ECL_RE.is_match(&value),
+                "pid" => PID_RE.is_match(&value),
+                "cid" => true,
+                _ => false
+            }
+        })
+        .fold(true, |acc, x| acc && x)
+}
+
 fn main() -> io::Result<()> {
+    
     // read input
     let args: Vec<String> = env::args().collect();
     let filename = &args[1];
@@ -53,6 +106,7 @@ fn main() -> io::Result<()> {
     });
 
     println!("Part 1: {}", passports.iter().filter(|x| validate(&x)).count());
+    println!("Part 2: {}", passports.iter().filter(|x| validate(&x) && validate_more(&x)).count());
 
     return Ok(());
 }
