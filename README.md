@@ -43,3 +43,7 @@ The key to this puzzle is to recognize the mapping between the binary space part
 ## Day 6
 
 Puzzles are staying pretty straightforward so far.  This one was just a bunch of set operations.  I had some issues with using references instead of cloning when trying to do the fold in the second half.  Still having to bang my head against the compiler due to misunderstanding some fundamentals here and there.  But hey, that's why I'm here doing this.
+
+## Day 7
+
+The first puzzle I solved by creating an inverted index and the second was a simple recursive solution.  I felt like I struggled with the rust compiler quite a bit to finish this challenge.  The creation of nested, variable-length data structures feel like they fit this puzzle very well, but also mean figuring out where I need to clone and use mutable references.  Clippy gave lots of good advice.
