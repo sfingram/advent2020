@@ -47,3 +47,7 @@ Puzzles are staying pretty straightforward so far.  This one was just a bunch of
 ## Day 7
 
 The first puzzle I solved by creating an inverted index and the second was a simple recursive solution.  I felt like I struggled with the rust compiler quite a bit to finish this challenge.  The creation of nested, variable-length data structures feel like they fit this puzzle very well, but also mean figuring out where I need to clone and use mutable references.  Clippy gave lots of good advice.
+
+## Day 8
+
+Practice is paying off: ran into some borrowing issues and was able to resolve them much quicker than I had a few days ago.  These are "build an interpreter" puzzles.  The second was a little tricky and I think my solution is kind of stupid because it requires "rewinding" the state of visited instructions.  Would like it if I could just "pop" to the previous state.  There's likely a more efficient way to do this, but gotta move on.
