@@ -72,7 +72,7 @@ fn main() -> io::Result<()> {
     let mut end = 0;
     let mut runsum = values[0];
     while runsum != values[last_i] {
-        if runsum < values[last_i] {            
+        if runsum < values[last_i] {
             end += 1;
             runsum += values[end];
         } else {
@@ -80,8 +80,10 @@ fn main() -> io::Result<()> {
             start += 1;
         }
     }
-    println!("Part 2: {}", values[start..end+1].iter().max().unwrap() + 
-        values[start..end+1].iter().min().unwrap());
+    println!(
+        "Part 2: {}",
+        values[start..end + 1].iter().max().unwrap() + values[start..end + 1].iter().min().unwrap()
+    );
 
     Ok(())
 }

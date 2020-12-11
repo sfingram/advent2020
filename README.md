@@ -55,3 +55,7 @@ Practice is paying off: ran into some borrowing issues and was able to resolve t
 ## Day 9
 
 Part one got me; I took a wrong turn and spent way too long implementing it.  There's gotta be a better way to do this one than I did, maybe I'll look at some other people's solutions.  I found part two to be much easier.
+
+## Day 10
+
+Part 1 was very simple, but part 2 needed a recurrence relation to solve.  In terms of rust, I was able to use the excellent itertools crate's `group_by` to structure the computation.  By the way, the recurrence needed generates the [tribonacci numbers](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers#Tribonacci_numbers), which are pretty interesting!  Great puzzle! 
