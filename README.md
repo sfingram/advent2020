@@ -51,3 +51,7 @@ The first puzzle I solved by creating an inverted index and the second was a sim
 ## Day 8
 
 Practice is paying off: ran into some borrowing issues and was able to resolve them much quicker than I had a few days ago.  These are "build an interpreter" puzzles.  The second was a little tricky and I think my solution is kind of stupid because it requires "rewinding" the state of visited instructions.  Would like it if I could just "pop" to the previous state.  There's likely a more efficient way to do this, but gotta move on.
+
+## Day 9
+
+Part one got me; I took a wrong turn and spent way too long implementing it.  There's gotta be a better way to do this one than I did, maybe I'll look at some other people's solutions.  I found part two to be much easier.
