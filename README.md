@@ -58,4 +58,11 @@ Part one got me; I took a wrong turn and spent way too long implementing it.  Th
 
 ## Day 10
 
-Part 1 was very simple, but part 2 needed a recurrence relation to solve.  In terms of rust, I was able to use the excellent itertools crate's `group_by` to structure the computation.  By the way, the recurrence needed generates the [tribonacci numbers](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers#Tribonacci_numbers), which are pretty interesting!  Great puzzle! 
+Part 1 was very simple, but part 2 needed a recurrence relation to solve.  In terms of rust, I was able to use the excellent itertools crate's `group_by` to structure the computation.  By the way, the recurrence needed generates the [tribonacci numbers](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers#Tribonacci_numbers), which are pretty interesting!  Great puzzle!
+
+## Day 11
+
+Not an elegant solution.  Wrestled with the compiler to try to turn a vector of lines into a list of chars in a concise way and failed.
+
+## Day 12
+
