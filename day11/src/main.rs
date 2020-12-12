@@ -37,16 +37,14 @@ fn main() -> io::Result<()> {
                             for v in -1 as i64..2 {
                                 let x_pos = h + (i as i64);
                                 let y_pos = v + (j as i64);
-                                if !(h == 0 && v == 0) {
-                                    if x_pos >= 0
+                                if !(h == 0 && v == 0)
+                                    && (x_pos >= 0
                                         && x_pos < width as i64
                                         && y_pos >= 0
-                                        && y_pos < height as i64
-                                    {
-                                        if values[(y_pos * width as i64 + x_pos) as usize] == '#' {
-                                            found_occupied = true;
-                                        }
-                                    }
+                                        && y_pos < height as i64)
+                                    && values[(y_pos * width as i64 + x_pos) as usize] == '#'
+                                {
+                                    found_occupied = true;
                                 }
                             }
                         }
@@ -65,16 +63,14 @@ fn main() -> io::Result<()> {
                             for v in -1 as i64..2 {
                                 let x_pos = h + (i as i64);
                                 let y_pos = v + (j as i64);
-                                if !(h == 0 && v == 0) {
-                                    if x_pos >= 0
-                                        && x_pos < width as i64
-                                        && y_pos >= 0
-                                        && y_pos < height as i64
-                                    {
-                                        if values[(y_pos * width as i64 + x_pos) as usize] == '#' {
-                                            occupied_count += 1;
-                                        }
-                                    }
+                                if !(h == 0 && v == 0)
+                                    && x_pos >= 0
+                                    && x_pos < width as i64
+                                    && y_pos >= 0
+                                    && y_pos < height as i64
+                                    && values[(y_pos * width as i64 + x_pos) as usize] == '#'
+                                {
+                                    occupied_count += 1;
                                 }
                             }
                         }
@@ -101,19 +97,17 @@ fn main() -> io::Result<()> {
     // How many seats end up occupied?
     println!("Part 1: {}", values.iter().filter(|x| **x == '#').count());
 
-    values = original.clone();
+    values = original;
     let lines_of_sight: Vec<(i64, i64)> = vec![
-        (-1, -1), (-1, 0), (-1, 1), 
-        (0, -1),           (0, 1),
-        (1, -1), (1, 0), (1, 1)];
-
-    // for j in 0..height {
-    //     for i in 0..width {
-    //         print!("{}", values[j * width + i]);
-    //     }
-    //     println!("");
-    // }
-    // println!("");
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
+    ];
 
     let mut changed = true;
     while changed {
@@ -176,16 +170,13 @@ fn main() -> io::Result<()> {
                     _ => current_state,
                 };
                 values_copy[j * width + i] = next_state;
-                // print!("{}", next_state);
             }
-            // println!("");
         }
 
         values_copy
             .iter()
             .enumerate()
             .for_each(|(i, c)| values[i] = *c);
-        // println!("");
     }
 
     // How many seats end up occupied?
